@@ -1,17 +1,24 @@
 module App.View.Homepage where
 
-import App.Events (Event)
-import App.State (State)
-import Control.Bind (discard)
-import Data.Function (($))
+import Prelude
+
+import App.Events (Event(..))
+import App.State (State(..))
+import Data.Int (decimal, toStringAs)
+import Pux.DOM.Events (onClick)
 import Pux.DOM.HTML (HTML)
-import Text.Smolder.HTML (a, div, h1)
-import Text.Smolder.HTML.Attributes (href, className)
-import Text.Smolder.Markup ((!), text)
+import Text.Smolder.HTML (button, div, h1)
+import Text.Smolder.Markup ((#!), text)
+
+
+getCountString :: State -> String
+getCountString (State s) = toStringAs decimal s.count
 
 view :: State -> HTML Event
 view s =
   div do
-    h1 $ text "Pux"
-    a ! className "guide" ! href "https://www.purescript-pux.org/" $ text "Guide"
-    a ! className "github" ! href "https://github.com/alexmingoia/purescript-pux/" $ text "GitHub"
+    h1 $ text "Upscrole" 
+    div do
+      button #! onClick (const Increment) $ text "Increment"
+      h1 $ text (getCountString s)
+      button #! onClick (const Decrement) $ text "Decrement"
