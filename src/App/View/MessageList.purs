@@ -10,7 +10,7 @@ import Text.Smolder.Markup (text)
 import App.Types (Message, Messages)
 
 message :: Message -> HTML Event
-message m = li $ text m
+message m = li $ text m.body
 
 messageList :: Messages -> HTML Event
 messageList m =
