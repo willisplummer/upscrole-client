@@ -14,7 +14,6 @@ exports.emitImpl = function (socket, eventName, data) {
 exports.onImpl = function (socket, eventName, callback) {
   return function () {
     socket.on(eventName, function (data) {
-      console.log(eventName, data);
       callback(data)();
     });
   };
