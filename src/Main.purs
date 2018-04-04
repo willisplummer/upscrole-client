@@ -28,6 +28,9 @@ hostname = "https://cryptic-plains-73206.herokuapp.com/?room=general"
 messageEvent :: Socket.Event
 messageEvent = "update chat"
 
+userEvent :: Socket.Event
+userEvent = "update userCount"
+
 
 main :: String -> State -> Eff ClientEffects WebApp
 main url state = do
@@ -42,6 +45,7 @@ main url state = do
   let socketSignal = subscribe actionChannel :: Signal Event
   socket <- Socket.connect hostname
   Socket.on socket messageEvent \d -> send actionChannel (OnMessage d)
+  Socket.on socket userEvent \c -> send actionChannel (OnNewUserCount c)
 
 
   -- | Start the app.

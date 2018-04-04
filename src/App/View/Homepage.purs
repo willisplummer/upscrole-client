@@ -1,12 +1,11 @@
 module App.View.Homepage where
-
-import Prelude
-
+import Prelude (discard, ($))
 import App.Events (Event)
 import App.State (State(..))
 import App.Types (Messages)
 import App.View.MessageList (messageList)
 import App.View.ChatInput (chatInput)
+import App.View.ActiveUserCount (activeUserCount)
 
 import Pux.DOM.HTML (HTML)
 import Text.Smolder.HTML (div, h1)
@@ -21,4 +20,5 @@ view s =
     h1 $ text "Upscrole" 
     messageList (getMessages s)
     chatInput s
+    activeUserCount s
 

@@ -14,6 +14,7 @@ newtype State = State
   , messages :: Messages
   , messageInput :: String
   , socket :: Maybe Socket
+  , activeUsers :: Int
   }
 
 derive instance newtypeState :: Newtype State _
@@ -26,4 +27,5 @@ init url socket = State
   , messages: []
   , messageInput: ""
   , socket: Just socket
+  , activeUsers: 0
   }

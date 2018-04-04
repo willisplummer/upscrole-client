@@ -9,14 +9,14 @@ import Control.SocketIO.Client (emit, Event, SocketIO) as Socket
 import Data.Function (($))
 import Data.Maybe (Maybe(..))
 import Network.HTTP.Affjax (AJAX)
+import Prelude (bind)
 import Pux (EffModel, noEffects)
 import Pux.DOM.Events (DOMEvent, targetValue)
-import Prelude (bind)
 
 dataEvent :: Socket.Event
 dataEvent = "data"
 
-data Event = PageView Route | MessageInputChange DOMEvent | MessageSubmit | OnMessage Messages | Noop
+data Event = OnNewUserCount Int | PageView Route | MessageInputChange DOMEvent | MessageSubmit | OnMessage Messages | Noop
 
 type AppEffects fx = (ajax :: AJAX, console :: CONSOLE, socket :: Socket.SocketIO | fx)
 
@@ -34,4 +34,5 @@ foldp (MessageSubmit) (State st) =
     ]
   }
 foldp (OnMessage m) (State st) = noEffects $ State st {messages = m}
+foldp (OnNewUserCount c) (State st) = noEffects $ State st {activeUsers = c}
 foldp Noop st = noEffects $ st
